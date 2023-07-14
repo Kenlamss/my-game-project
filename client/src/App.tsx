@@ -1,36 +1,45 @@
-import React, { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import elbrusLogo from './assets/elbrus.svg';
-import './App.css';
+import { Container } from '@mui/material';
+import React, { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import NavBar from './components/pages/UI/NavBar';
+import MainPage from './components/pages/mainPage/MainPage';
+import LoginPage from './components/pages/loginPage/LoginPage';
+import { useAppDispatch, useAppSelector } from './features/redux/hooks';
+import PrivateRouter from './components/HOC/PrivateRouter';
+import { checkUserThunk } from './features/redux/slices/user/thunks';
+import StartPage from './components/pages/startPage/StartPage';
 
 function App(): JSX.Element {
-  const [count, setCount] = useState(0);
+  const status = useAppSelector((store) => store.user.status);
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    void dispatch(checkUserThunk());
+  }, []);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://github.com/Elbrus-Bootcamp" target="_blank" rel="noreferrer">
-          <img src={elbrusLogo} className="logo elbrus" alt="Elbrus logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h2>Elbrus Bootcamp</h2>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button type="button" onClick={() => setCount((prev) => prev + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </div>
+    <Container>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<StartPage />} />
+        <Route
+          path="/mainPage"
+          element={
+            <PrivateRouter isAllowed={status === 'logged'}>
+              <MainPage />
+            </PrivateRouter>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PrivateRouter isAllowed={status === 'empty'}>
+              <LoginPage />
+            </PrivateRouter>
+          }
+        />
+      </Routes>
+    </Container>
   );
 }
 
