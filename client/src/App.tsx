@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from './features/redux/hooks';
 import PrivateRouter from './components/HOC/PrivateRouter';
 import { checkUserThunk } from './features/redux/slices/user/thunks';
 import StartPage from './components/pages/startPage/StartPage';
+import GamePage from './components/pages/gamePage/GamePage';
 
 function App(): JSX.Element {
   const status = useAppSelector((store) => store.user.status);
@@ -38,6 +39,7 @@ function App(): JSX.Element {
             </PrivateRouter>
           }
         />
+        <Route path="/game" element={<GamePage />} />
       </Routes>
     </Container>
   );
