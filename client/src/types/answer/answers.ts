@@ -1,3 +1,3 @@
 export type AnswersFormType = {
-    question: string;
+    answer: string;
 }
