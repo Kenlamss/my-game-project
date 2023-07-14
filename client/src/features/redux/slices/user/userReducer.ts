@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/default-param-last */
 import type { UserActionsType } from '../../../../types/user/actions';
 import type { UserType } from '../../../../types/user/user';
 
