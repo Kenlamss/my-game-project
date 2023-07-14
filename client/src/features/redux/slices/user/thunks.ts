@@ -1,6 +1,6 @@
 import axios from 'axios';
-import type { BackendUser, UserSigninForm } from '../../../../types/user/user';
 import type { AppThunk } from '../../store';
+import type { BackendUser, UserSigninForm } from '../../../../types/user/user';
 
 export const checkUserThunk: AppThunk = () => (dispatch) => {
   axios<BackendUser>('/auth/check')

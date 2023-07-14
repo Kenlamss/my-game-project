@@ -4,7 +4,7 @@ import userReducer from './slices/user/userReducer';
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    games:
+    // games:
   },
 });
 
