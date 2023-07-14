@@ -4,7 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 type PrivateRouterProps = {
   isAllowed: boolean;
   redirectPath?: string;
-  children?: JSX.Element;
+  children?: JSX.Element;  
 };
 
 export default function PrivateRouter({
